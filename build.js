@@ -1,15 +1,11 @@
-const { readFileSync, writeFileSync } = require("fs");
-const { join, basename } = require("path");
-const { transform } = require("babel-core");
+const fs = require('fs');
+const path = require('path');
+const b = require('./vendors/babel.min.js');
+// console.log(b.availablePresets);
 
-const sourceName = process.argv[2] || "app.jsx";
-const targetName = join(__dirname, basename(sourceName, ".jsx") + ".compiled.js");
-
-transformFile(sourceName, targetName);
-
-function transformFile(sourceName, targetName) {
-  console.log(`Compiling ${sourceName} to ${targetName}...`);
-  const source = readFileSync(sourceName, "utf8");
-  const result = transform(source, { presets: ["react", "es2017"], sourceMaps: false });
-  writeFileSync(targetName, result.code, "utf8");
-}
+const sourceName = process.argv[2] || 'app.jsx';
+const targetName = path.basename(sourceName, '.jsx') + '.compiled.js';
+console.log(`Compiling ${sourceName} to ${targetName}...`);
+const source = fs.readFileSync(sourceName);
+const target = b.transform(source, {presets:['react', 'es2017']});
+fs.writeFileSync(targetName, target.code);
