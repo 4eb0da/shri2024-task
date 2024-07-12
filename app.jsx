@@ -383,8 +383,6 @@ document.addEventListener("DOMContentLoaded", () => {
          <Main />
       </>
    );
-   setTimeout(() => {
-      const footer = document.querySelector(".footer_hidden");
-      footer.classList.remove("footer_hidden");
-   }, 0);
+   const footer = document.querySelector(".footer_hidden");
+   footer.classList.remove("footer_hidden");
 });
